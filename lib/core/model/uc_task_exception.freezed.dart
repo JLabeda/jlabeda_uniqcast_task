@@ -14,6 +14,21 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
+UCTaskException _$UCTaskExceptionFromJson(Map<String, dynamic> json) {
+  switch (json['runtimeType']) {
+    case 'auth':
+      return _Auth.fromJson(json);
+    case 'channels':
+      return _Channels.fromJson(json);
+    case 'customMessage':
+      return _CustomMessage.fromJson(json);
+
+    default:
+      throw CheckedFromJsonException(json, 'runtimeType', 'UCTaskException',
+          'Invalid union type "${json['runtimeType']}"!');
+  }
+}
+
 /// @nodoc
 mixin _$UCTaskException {
   String get message => throw _privateConstructorUsedError;
@@ -61,7 +76,7 @@ mixin _$UCTaskException {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $UCTaskExceptionCopyWith<UCTaskException> get copyWith =>
       throw _privateConstructorUsedError;
@@ -133,15 +148,23 @@ class __$$AuthImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$AuthImpl implements _Auth {
   const _$AuthImpl(
       [this.message =
-          'Problem with authentication service. Please try again later, or contact support.']);
+          'Problem with authentication service. Please try again later, or contact support.',
+      final String? $type])
+      : $type = $type ?? 'auth';
+
+  factory _$AuthImpl.fromJson(Map<String, dynamic> json) =>
+      _$$AuthImplFromJson(json);
 
   @override
   @JsonKey()
   final String message;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
 
   @override
   String toString() {
@@ -156,6 +179,7 @@ class _$AuthImpl implements _Auth {
             (identical(other.message, message) || other.message == message));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
@@ -232,10 +256,19 @@ class _$AuthImpl implements _Auth {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$AuthImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Auth implements UCTaskException {
   const factory _Auth([final String message]) = _$AuthImpl;
+
+  factory _Auth.fromJson(Map<String, dynamic> json) = _$AuthImpl.fromJson;
 
   @override
   String get message;
@@ -279,15 +312,23 @@ class __$$ChannelsImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$ChannelsImpl implements _Channels {
   const _$ChannelsImpl(
       [this.message =
-          'Problem with authentication service. Please try again later, or contact support.']);
+          'Problem with authentication service. Please try again later, or contact support.',
+      final String? $type])
+      : $type = $type ?? 'channels';
+
+  factory _$ChannelsImpl.fromJson(Map<String, dynamic> json) =>
+      _$$ChannelsImplFromJson(json);
 
   @override
   @JsonKey()
   final String message;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
 
   @override
   String toString() {
@@ -302,6 +343,7 @@ class _$ChannelsImpl implements _Channels {
             (identical(other.message, message) || other.message == message));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
@@ -378,10 +420,20 @@ class _$ChannelsImpl implements _Channels {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$ChannelsImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _Channels implements UCTaskException {
   const factory _Channels([final String message]) = _$ChannelsImpl;
+
+  factory _Channels.fromJson(Map<String, dynamic> json) =
+      _$ChannelsImpl.fromJson;
 
   @override
   String get message;
@@ -425,12 +477,19 @@ class __$$CustomMessageImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-
+@JsonSerializable()
 class _$CustomMessageImpl implements _CustomMessage {
-  const _$CustomMessageImpl({required this.message});
+  const _$CustomMessageImpl({required this.message, final String? $type})
+      : $type = $type ?? 'customMessage';
+
+  factory _$CustomMessageImpl.fromJson(Map<String, dynamic> json) =>
+      _$$CustomMessageImplFromJson(json);
 
   @override
   final String message;
+
+  @JsonKey(name: 'runtimeType')
+  final String $type;
 
   @override
   String toString() {
@@ -445,6 +504,7 @@ class _$CustomMessageImpl implements _CustomMessage {
             (identical(other.message, message) || other.message == message));
   }
 
+  @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
@@ -521,11 +581,21 @@ class _$CustomMessageImpl implements _CustomMessage {
     }
     return orElse();
   }
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$CustomMessageImplToJson(
+      this,
+    );
+  }
 }
 
 abstract class _CustomMessage implements UCTaskException {
   const factory _CustomMessage({required final String message}) =
       _$CustomMessageImpl;
+
+  factory _CustomMessage.fromJson(Map<String, dynamic> json) =
+      _$CustomMessageImpl.fromJson;
 
   @override
   String get message;

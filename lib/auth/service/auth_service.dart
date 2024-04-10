@@ -1,7 +1,6 @@
-import 'dart:developer';
-
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 
 import 'package:jlabeda_uniqcast_task/auth/interface/auth_interface.dart';
 import 'package:jlabeda_uniqcast_task/auth/model/uc_auth_data.dart';
@@ -31,12 +30,11 @@ class AuthService implements AuthInterface {
           'password': password,
         },
       );
-      print(response);
       return right(
         UCAuthData.fromJson(response.data?['data'] as Map<String, dynamic>),
       );
     } catch (e) {
-      log('AuthService login() exception: $e');
+      debugPrint('AuthService login() exception: $e');
       return left(const UCTaskException.auth());
     }
   }

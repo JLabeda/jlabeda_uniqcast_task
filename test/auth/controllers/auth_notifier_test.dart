@@ -26,8 +26,12 @@ void main() {
   test(
       'AuthNotifier login() should set state to Authenticated, when provided valid credentials ',
       () async {
-    const mockResponse =
-        UCAuthData(accesToken: 'accesToken', refreshToken: 'refreshToken');
+    const mockResponse = UCAuthData(
+      accesToken: 'accesToken',
+      refreshToken: 'refreshToken',
+      operatorId: '1',
+      userId: 1,
+    );
     when(() => mockService.login(userName: 'flutter_test', password: '1111'))
         .thenAnswer((_) async => right(mockResponse));
     await notifier.login(userName: 'flutter_test', password: '1111');

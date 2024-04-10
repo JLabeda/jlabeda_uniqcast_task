@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:jlabeda_uniqcast_task/auth/controllers/auth_notifier_provider.dart';
+import 'package:jlabeda_uniqcast_task/main.dart';
 
 class AuthPage extends ConsumerStatefulWidget {
   const AuthPage({super.key});
@@ -22,6 +24,13 @@ class _AuthPageState extends ConsumerState<AuthPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(authNotifierProvider, (_, next) {
+      next.whenOrNull(
+        authenticated: (data) {
+          context.goNamed(Routes.channels.name);
+        },
+      );
+    });
     return Scaffold(
       body: Padding(
         padding: MediaQuery.of(context).viewPadding +

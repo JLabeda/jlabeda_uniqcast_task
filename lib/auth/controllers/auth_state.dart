@@ -9,3 +9,7 @@ class AuthState with _$AuthState {
   const factory AuthState.authenticated(UCAuthData data) = _Authenticated;
   const factory AuthState.error() = _Error;
 }
+
+extension AuthStateEx on AuthState {
+  UCAuthData? get authData => mapOrNull(authenticated: (value) => value.data);
+}

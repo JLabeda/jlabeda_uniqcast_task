@@ -20,7 +20,7 @@ class UCTheme {
           surface: secondary,
           surfaceTint: Colors.transparent,
         ),
-        useMaterial3: false,
+        useMaterial3: true,
         inputDecorationTheme: const InputDecorationTheme(
           border: OutlineInputBorder(
             borderSide: BorderSide.none,
