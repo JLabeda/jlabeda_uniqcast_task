@@ -1,4 +1,5 @@
-import 'package:flutter/foundation.dart';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -37,12 +38,12 @@ class _ChannelsPageState extends ConsumerState<ChannelsPage> {
     final channelsState = ref.watch(channelsNotifierProvider);
     return Scaffold(
       body: Padding(
-        padding: kIsWeb
-            ? EdgeInsets.symmetric(
+        padding: Platform.isAndroid || Platform.isIOS
+            ? MediaQuery.of(context).viewPadding +
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 24)
+            : EdgeInsets.symmetric(
                 horizontal: WebVariables.webPadding(context, 460),
-              )
-            : MediaQuery.of(context).viewPadding +
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              ),
         child: FutureBuilder(
           future: future,
           builder: (context, snapshot) {
