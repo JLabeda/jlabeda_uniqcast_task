@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -38,12 +39,7 @@ class _ChannelsPageState extends ConsumerState<ChannelsPage> {
     final channelsState = ref.watch(channelsNotifierProvider);
     return Scaffold(
       body: Padding(
-        padding: Platform.isAndroid || Platform.isIOS
-            ? MediaQuery.of(context).viewPadding +
-                const EdgeInsets.symmetric(horizontal: 16, vertical: 24)
-            : EdgeInsets.symmetric(
-                horizontal: WebVariables.webPadding(context, 460),
-              ),
+        padding: getPadding(),
         child: FutureBuilder(
           future: future,
           builder: (context, snapshot) {
@@ -89,6 +85,20 @@ class _ChannelsPageState extends ConsumerState<ChannelsPage> {
         ),
       ),
     );
+  }
+
+  EdgeInsets getPadding() {
+    final bigPadding = EdgeInsets.symmetric(
+      horizontal: WebVariables.webPadding(context, 460),
+    );
+    if (kIsWeb) {
+      return bigPadding;
+    } else if (Platform.isAndroid || Platform.isIOS) {
+      return MediaQuery.of(context).viewPadding +
+          const EdgeInsets.symmetric(horizontal: 16, vertical: 24);
+    } else {
+      return bigPadding;
+    }
   }
 
   @override

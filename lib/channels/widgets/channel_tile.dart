@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:jlabeda_uniqcast_task/channels/controllers/channels_notifier_provider.dart';
@@ -19,7 +20,7 @@ class ChannelTile extends ConsumerWidget {
     const placeholderImagePath = 'assets/images/tv.jpeg';
     return GestureDetector(
       onTap: () {
-        if (Platform.isAndroid || Platform.isIOS) {
+        if (!kIsWeb && !Platform.isMacOS) {
           ref
               .read(channelsNotifierProvider.notifier)
               .toggleChannelSelection(channel);

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -40,11 +41,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
     });
     return Scaffold(
       body: Padding(
-        padding: Platform.isAndroid || Platform.isIOS
-            ? EdgeInsets.zero
-            : EdgeInsets.symmetric(
-                horizontal: WebVariables.webPadding(context, 460),
-              ),
+        padding: getPadding(),
         child: Builder(
           builder: (context) {
             return ref.watch(authNotifierProvider).maybeMap(
@@ -101,6 +98,19 @@ class _AuthPageState extends ConsumerState<AuthPage> {
         ),
       ),
     );
+  }
+
+  EdgeInsets getPadding() {
+    final bigPadding = EdgeInsets.symmetric(
+      horizontal: WebVariables.webPadding(context, 460),
+    );
+    if (kIsWeb) {
+      return bigPadding;
+    } else if (Platform.isAndroid || Platform.isIOS) {
+      return EdgeInsets.zero;
+    } else {
+      return bigPadding;
+    }
   }
 
   @override

@@ -8,6 +8,7 @@ import 'package:jlabeda_uniqcast_task/channels/model/channel/channel.dart';
 import 'package:jlabeda_uniqcast_task/core/dartz_extension.dart';
 import 'package:jlabeda_uniqcast_task/core/model/uc_task_exception.dart';
 
+/// Notifier responsible for managaing of channel data
 class ChannelsNotifier extends StateNotifier<ChannelsState> {
   ChannelsNotifier({
     required this.service,
