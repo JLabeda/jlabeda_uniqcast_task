@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'package:jlabeda_uniqcast_task/auth/controllers/auth_state.dart';
 import 'package:jlabeda_uniqcast_task/channels/controllers/channels_state.dart';
 import 'package:jlabeda_uniqcast_task/channels/interface/channels_interface.dart';
+import 'package:jlabeda_uniqcast_task/channels/model/channel/channel.dart';
 import 'package:jlabeda_uniqcast_task/core/dartz_extension.dart';
 import 'package:jlabeda_uniqcast_task/core/model/uc_task_exception.dart';
 
@@ -44,6 +46,18 @@ class ChannelsNotifier extends StateNotifier<ChannelsState> {
       operatorId: operatorId,
       exception: null,
     );
+  }
+
+  void toggleChannelSelection([Channel? selectedChannel]) {
+    if (selectedChannel is Channel) {
+      state = state.copyWith(
+        selectedChannel: selectedChannel,
+      );
+    } else {
+      state = state.copyWith(
+        selectedChannel: null,
+      );
+    }
   }
 
   void reset() => state = ChannelsState.initial();

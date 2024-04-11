@@ -21,7 +21,7 @@ Map<String, dynamic> _$$AuthImplToJson(_$AuthImpl instance) =>
 _$ChannelsImpl _$$ChannelsImplFromJson(Map<String, dynamic> json) =>
     _$ChannelsImpl(
       json['message'] as String? ??
-          'Problem with authentication service. Please try again later, or contact support.',
+          'Problem with fetching channel data. Please try again later, or contact support.',
       json['runtimeType'] as String?,
     );
 

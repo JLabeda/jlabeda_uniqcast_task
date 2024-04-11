@@ -45,6 +45,9 @@ void main() {
     when(() => mockService.login(userName: 'wrong', password: 'credentials'))
         .thenAnswer((_) async => left(mockResponse));
     await notifier.login(userName: 'wrong', password: 'credentials');
-    expect(notifier.getState(), equals(const AuthState.error()));
+    expect(
+      notifier.getState(),
+      equals(const AuthState.error(UCTaskException.auth())),
+    );
   });
 }

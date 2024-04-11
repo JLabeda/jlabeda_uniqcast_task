@@ -21,6 +21,7 @@ ChannelsState _$ChannelsStateFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ChannelsState {
   List<Channel> get channels => throw _privateConstructorUsedError;
+  Channel? get selectedChannel => throw _privateConstructorUsedError;
   String? get operatorId => throw _privateConstructorUsedError;
   UCTaskException? get exception => throw _privateConstructorUsedError;
 
@@ -37,8 +38,12 @@ abstract class $ChannelsStateCopyWith<$Res> {
       _$ChannelsStateCopyWithImpl<$Res, ChannelsState>;
   @useResult
   $Res call(
-      {List<Channel> channels, String? operatorId, UCTaskException? exception});
+      {List<Channel> channels,
+      Channel? selectedChannel,
+      String? operatorId,
+      UCTaskException? exception});
 
+  $ChannelCopyWith<$Res>? get selectedChannel;
   $UCTaskExceptionCopyWith<$Res>? get exception;
 }
 
@@ -56,6 +61,7 @@ class _$ChannelsStateCopyWithImpl<$Res, $Val extends ChannelsState>
   @override
   $Res call({
     Object? channels = null,
+    Object? selectedChannel = freezed,
     Object? operatorId = freezed,
     Object? exception = freezed,
   }) {
@@ -64,6 +70,10 @@ class _$ChannelsStateCopyWithImpl<$Res, $Val extends ChannelsState>
           ? _value.channels
           : channels // ignore: cast_nullable_to_non_nullable
               as List<Channel>,
+      selectedChannel: freezed == selectedChannel
+          ? _value.selectedChannel
+          : selectedChannel // ignore: cast_nullable_to_non_nullable
+              as Channel?,
       operatorId: freezed == operatorId
           ? _value.operatorId
           : operatorId // ignore: cast_nullable_to_non_nullable
@@ -73,6 +83,18 @@ class _$ChannelsStateCopyWithImpl<$Res, $Val extends ChannelsState>
           : exception // ignore: cast_nullable_to_non_nullable
               as UCTaskException?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $ChannelCopyWith<$Res>? get selectedChannel {
+    if (_value.selectedChannel == null) {
+      return null;
+    }
+
+    return $ChannelCopyWith<$Res>(_value.selectedChannel!, (value) {
+      return _then(_value.copyWith(selectedChannel: value) as $Val);
+    });
   }
 
   @override
@@ -97,8 +119,13 @@ abstract class _$$ChannelsStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {List<Channel> channels, String? operatorId, UCTaskException? exception});
+      {List<Channel> channels,
+      Channel? selectedChannel,
+      String? operatorId,
+      UCTaskException? exception});
 
+  @override
+  $ChannelCopyWith<$Res>? get selectedChannel;
   @override
   $UCTaskExceptionCopyWith<$Res>? get exception;
 }
@@ -115,6 +142,7 @@ class __$$ChannelsStateImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? channels = null,
+    Object? selectedChannel = freezed,
     Object? operatorId = freezed,
     Object? exception = freezed,
   }) {
@@ -123,6 +151,10 @@ class __$$ChannelsStateImplCopyWithImpl<$Res>
           ? _value._channels
           : channels // ignore: cast_nullable_to_non_nullable
               as List<Channel>,
+      selectedChannel: freezed == selectedChannel
+          ? _value.selectedChannel
+          : selectedChannel // ignore: cast_nullable_to_non_nullable
+              as Channel?,
       operatorId: freezed == operatorId
           ? _value.operatorId
           : operatorId // ignore: cast_nullable_to_non_nullable
@@ -139,7 +171,10 @@ class __$$ChannelsStateImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ChannelsStateImpl implements _ChannelsState {
   const _$ChannelsStateImpl(
-      {required final List<Channel> channels, this.operatorId, this.exception})
+      {required final List<Channel> channels,
+      this.selectedChannel,
+      this.operatorId,
+      this.exception})
       : _channels = channels;
 
   factory _$ChannelsStateImpl.fromJson(Map<String, dynamic> json) =>
@@ -154,13 +189,15 @@ class _$ChannelsStateImpl implements _ChannelsState {
   }
 
   @override
+  final Channel? selectedChannel;
+  @override
   final String? operatorId;
   @override
   final UCTaskException? exception;
 
   @override
   String toString() {
-    return 'ChannelsState(channels: $channels, operatorId: $operatorId, exception: $exception)';
+    return 'ChannelsState(channels: $channels, selectedChannel: $selectedChannel, operatorId: $operatorId, exception: $exception)';
   }
 
   @override
@@ -169,6 +206,8 @@ class _$ChannelsStateImpl implements _ChannelsState {
         (other.runtimeType == runtimeType &&
             other is _$ChannelsStateImpl &&
             const DeepCollectionEquality().equals(other._channels, _channels) &&
+            (identical(other.selectedChannel, selectedChannel) ||
+                other.selectedChannel == selectedChannel) &&
             (identical(other.operatorId, operatorId) ||
                 other.operatorId == operatorId) &&
             (identical(other.exception, exception) ||
@@ -177,8 +216,12 @@ class _$ChannelsStateImpl implements _ChannelsState {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_channels), operatorId, exception);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_channels),
+      selectedChannel,
+      operatorId,
+      exception);
 
   @JsonKey(ignore: true)
   @override
@@ -197,6 +240,7 @@ class _$ChannelsStateImpl implements _ChannelsState {
 abstract class _ChannelsState implements ChannelsState {
   const factory _ChannelsState(
       {required final List<Channel> channels,
+      final Channel? selectedChannel,
       final String? operatorId,
       final UCTaskException? exception}) = _$ChannelsStateImpl;
 
@@ -205,6 +249,8 @@ abstract class _ChannelsState implements ChannelsState {
 
   @override
   List<Channel> get channels;
+  @override
+  Channel? get selectedChannel;
   @override
   String? get operatorId;
   @override

@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:jlabeda_uniqcast_task/channels/controllers/channels_notifier_provider.dart';
-import 'package:jlabeda_uniqcast_task/main.dart';
+import 'package:jlabeda_uniqcast_task/channels/widgets/channel_tile.dart';
+import 'package:jlabeda_uniqcast_task/channels/widgets/stream_player.dart';
+import 'package:jlabeda_uniqcast_task/core/error_popup.dart';
+import 'package:jlabeda_uniqcast_task/core/model/uc_task_exception.dart';
 
 class ChannelsPage extends ConsumerStatefulWidget {
   const ChannelsPage({super.key});
@@ -24,6 +27,12 @@ class _ChannelsPageState extends ConsumerState<ChannelsPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(channelsNotifierProvider, (previous, next) async {
+      if (next.exception is UCTaskException) {
+        await ErrorPopup.show(context, next.exception!);
+      }
+    });
+    final channelsState = ref.watch(channelsNotifierProvider);
     return Scaffold(
       body: Padding(
         padding: MediaQuery.of(context).viewPadding +
@@ -31,60 +40,44 @@ class _ChannelsPageState extends ConsumerState<ChannelsPage> {
         child: FutureBuilder(
           future: future,
           builder: (context, snapshot) {
-            if (snapshot.hasError) {
-              return const Center(
-                child: Text('Error!'),
+            if (channelsState.exception is UCTaskException) {
+              return Center(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      ref.read(channelsNotifierProvider.notifier).reset();
+                      ref
+                          .read(channelsNotifierProvider.notifier)
+                          .configureChannels();
+                    },
+                    child: const Text('Try again!'),
+                  ),
+                ),
               );
             } else if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator.adaptive(),
               );
-            }
-            final channels = ref.watch(channelsNotifierProvider).channels;
-            final operatorId = ref.watch(channelsNotifierProvider).operatorId;
-
-            return ListView.builder(
-              controller: controller,
-              itemCount: channels.length,
-              itemBuilder: (context, index) {
-                final channel = channels[index];
-                return Card(
-                  margin: const EdgeInsets.symmetric(vertical: 8),
-                  elevation: 4,
-                  child: Wrap(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 8),
-                        height: 100,
-                        width: 100,
-                        child: Image.network(
-                          'https://office-new-dev.uniqcast.com:12611/api/client/v1/$operatorId/channels/${channel.id}/logos/card?accessKey=WkVjNWNscFhORDBLCg==',
-                          errorBuilder: (context, error, stackTrace) =>
-                              Image.asset(
-                            'assets/images/tv.jpeg',
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            channel.name,
-                            style: Theme.of(context).textTheme.title1,
-                          ),
-                          Text(channel.resolution),
-                        ],
-                      ),
-                    ],
+            } else {
+              final channels = channelsState.channels;
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const StreamPlayer(),
+                  Expanded(
+                    child: ListView.builder(
+                      controller: controller,
+                      itemCount: channels.length,
+                      itemBuilder: (_, index) {
+                        final channel = channels[index];
+                        return ChannelTile(channel);
+                      },
+                    ),
                   ),
-                );
-              },
-            );
+                ],
+              );
+            }
           },
         ),
       ),

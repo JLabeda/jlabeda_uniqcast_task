@@ -15,7 +15,7 @@ class UCTaskException with _$UCTaskException {
 
   const factory UCTaskException.channels([
     @Default(
-      'Problem with authentication service. Please try again later, or contact support.',
+      'Problem with fetching channel data. Please try again later, or contact support.',
     )
     String message,
   ]) = _Channels;

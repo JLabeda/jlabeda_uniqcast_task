@@ -316,7 +316,7 @@ class __$$ChannelsImplCopyWithImpl<$Res>
 class _$ChannelsImpl implements _Channels {
   const _$ChannelsImpl(
       [this.message =
-          'Problem with authentication service. Please try again later, or contact support.',
+          'Problem with fetching channel data. Please try again later, or contact support.',
       final String? $type])
       : $type = $type ?? 'channels';
 

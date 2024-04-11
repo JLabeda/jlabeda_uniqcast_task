@@ -11,6 +11,9 @@ _$ChannelsStateImpl _$$ChannelsStateImplFromJson(Map<String, dynamic> json) =>
       channels: (json['channels'] as List<dynamic>)
           .map((e) => Channel.fromJson(e as Map<String, dynamic>))
           .toList(),
+      selectedChannel: json['selectedChannel'] == null
+          ? null
+          : Channel.fromJson(json['selectedChannel'] as Map<String, dynamic>),
       operatorId: json['operatorId'] as String?,
       exception: json['exception'] == null
           ? null
@@ -20,6 +23,7 @@ _$ChannelsStateImpl _$$ChannelsStateImplFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$ChannelsStateImplToJson(_$ChannelsStateImpl instance) =>
     <String, dynamic>{
       'channels': instance.channels,
+      'selectedChannel': instance.selectedChannel,
       'operatorId': instance.operatorId,
       'exception': instance.exception,
     };

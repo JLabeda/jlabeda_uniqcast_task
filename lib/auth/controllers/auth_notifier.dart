@@ -14,6 +14,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     required String password,
   }) async {
     debugPrint('[AuthNotifier] login()');
+    state = const AuthState.loading();
     final response = await service.login(
       userName: userName,
       password: password,
@@ -21,7 +22,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
     if (response.isRight()) {
       state = AuthState.authenticated(response.getRightOrThrow());
     } else {
-      state = const AuthState.error();
+      state = AuthState.error(response.getLeftOrThrow());
     }
   }
 

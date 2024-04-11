@@ -12,6 +12,7 @@ part 'channels_state.g.dart';
 class ChannelsState with _$ChannelsState {
   const factory ChannelsState({
     required List<Channel> channels,
+    Channel? selectedChannel,
     String? operatorId,
     UCTaskException? exception,
   }) = _ChannelsState;
@@ -19,5 +20,7 @@ class ChannelsState with _$ChannelsState {
   factory ChannelsState.fromJson(Map<String, dynamic> json) =>
       _$ChannelsStateFromJson(json);
 
-  factory ChannelsState.initial() => const ChannelsState(channels: []);
+  factory ChannelsState.initial() => const ChannelsState(
+        channels: [],
+      );
 }
