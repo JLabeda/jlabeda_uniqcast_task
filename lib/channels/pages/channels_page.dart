@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -6,6 +7,7 @@ import 'package:jlabeda_uniqcast_task/channels/widgets/channel_tile.dart';
 import 'package:jlabeda_uniqcast_task/channels/widgets/stream_player.dart';
 import 'package:jlabeda_uniqcast_task/core/error_popup.dart';
 import 'package:jlabeda_uniqcast_task/core/model/uc_task_exception.dart';
+import 'package:jlabeda_uniqcast_task/core/web_variables.dart';
 
 class ChannelsPage extends ConsumerStatefulWidget {
   const ChannelsPage({super.key});
@@ -35,8 +37,12 @@ class _ChannelsPageState extends ConsumerState<ChannelsPage> {
     final channelsState = ref.watch(channelsNotifierProvider);
     return Scaffold(
       body: Padding(
-        padding: MediaQuery.of(context).viewPadding +
-            const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+        padding: kIsWeb
+            ? EdgeInsets.symmetric(
+                horizontal: WebVariables.webPadding(context, 460),
+              )
+            : MediaQuery.of(context).viewPadding +
+                const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
         child: FutureBuilder(
           future: future,
           builder: (context, snapshot) {

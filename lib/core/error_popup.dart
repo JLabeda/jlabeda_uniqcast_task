@@ -19,21 +19,19 @@ class ErrorPopup extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog.adaptive(
-      content: Column(
-        children: [
-          Text(
-            exception.message,
-            textAlign: TextAlign.center,
+    return Center(
+      child: AlertDialog.adaptive(
+        content: Text(
+          exception.message,
+          textAlign: TextAlign.center,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => context.pop(),
+            child: const Text('Close'),
           ),
         ],
       ),
-      actions: [
-        TextButton(
-          onPressed: () => context.pop(),
-          child: const Text('Close'),
-        ),
-      ],
     );
   }
 }
